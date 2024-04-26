@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-analyzer-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-analyzer
+  template:
+    metadata:
+      labels:
+        app: data-analyzer
+    spec:
+      containers:
+      - name: data-analyzer
+        image: ofek18100/dataanalyzer
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: data-base
+          mountPath: /data
+      volumes:
+      - name: data-base
+        persistentVolumeClaim:
+          claimName: data-base-claim

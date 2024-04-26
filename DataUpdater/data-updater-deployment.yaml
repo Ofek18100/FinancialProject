@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-updater-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-updater
+  template:
+    metadata:
+      labels:
+        app: data-updater
+    spec:
+      containers:
+      - name: data-updater
+        image: ofek18100/financialproject
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: data-base
+          mountPath: /data
+      volumes:
+      - name: data-base
+        persistentVolumeClaim:
+          claimName: data-base-claim

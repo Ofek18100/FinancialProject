@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-analyzer-service
+spec:
+  type: LoadBalancer
+  selector: 
+    app: data-analyzer
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5000
